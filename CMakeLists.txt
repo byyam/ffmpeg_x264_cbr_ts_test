@@ -18,6 +18,17 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(LIBAV REQUIRED IMPORTED_TARGET
+    libavdevice
+    libavfilter
+    libavformat
+    libavcodec
+    libswresample
+    libswscale
+    libavutil
+)
+
 ################################################################
 # Find Thread - used implicitly by GTest
 find_package(Threads REQUIRED)
@@ -59,10 +70,7 @@ add_executable(x264_cbr ${TARGET_HPP} ${TARGET_CPP})
 
 
 target_link_libraries(x264_cbr
-    avformat
-    avcodec
-    avutil
-    x264
+	PkgConfig::LIBAV
     pthread
 	dl
     )

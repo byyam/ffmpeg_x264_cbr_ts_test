@@ -127,10 +127,10 @@ bool open_decoder_context(AVFormatContext *const in_pFmtCtx,
     }
 
     const int stream_index = ret;
-    AVStream *const st = in_pFmtCtx->streams[stream_index];
+    auto st = in_pFmtCtx->streams[stream_index];
 
     // Find decoder for the stream
-    AVCodec *const pCdc = avcodec_find_decoder(st->codecpar->codec_id);
+    auto pCdc = avcodec_find_decoder(st->codecpar->codec_id);
     if (pCdc == nullptr)
     {
         std::cerr << "Failed to find '"
